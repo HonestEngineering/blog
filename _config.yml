@@ -6,13 +6,15 @@ description: >-
   Google search results) and in your feed.xml site description.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://honest.engineering/blog"
-twitter_username: honest_stories
 github_username:  honestengineering
 
 destination: docs
 
 # Build settings
 markdown: kramdown
-theme: minima
+theme: tale
 plugins:
   - jekyll-feed
+
+permalink:  /posts/:title
+paginate:   5
