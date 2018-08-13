@@ -1,0 +1,76 @@
+---
+layout: default
+---
+
+<div class="catalogue">
+  {% for post in paginator.posts %}
+    <a href="{{ post.url | prepend: site.baseurl }}" class="catalogue-item">
+      <div>
+        <time datetime="{{ post.date }}" class="catalogue-time">{{ post.date | date: "%B %d, %Y" }}</time>
+        <h1 class="catalogue-title">{{ post.title }}</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          {{ post.content | truncatewords: 30 | strip_html }}
+        </p>
+
+      </div>
+    </a>
+  {% endfor %}
+</div>
+
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="left arrow">&#8592;</a>
+  {% endif %}
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="right arrow">&#8594;</a>
+  {% endif %}
+
+  {% if paginator.next_page || paginator.previous_page  %}
+    <span>{{ paginator.page }}</span>
+  {% endif %}
+</div>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<div style="font-size: 77%;">
+  <p>We are honest engineers,</p>
+  <p>We are a group of fellow engineers who want to share an honest vision of the current state of web engineering.</p>
+  <p>Most of articles are either self promotions, or too opinionated.</p>
+  <p>We want to share honest and unbiased thought about the current state of tech.</p>
+  <p>Our mission is to help fellow engineers forge their own opinion on current trendy and controversial subjects.</p>
+  <p><em>Note : The opinions expressed here are our own and not those of our employers.</em></p>
+  <p>
+      More on the <a href="/about">About page</a>.
+  </p>
+</div>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<div class="pagination">
+  &nbsp;
+</div>
+
+<!-- Begin MailChimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://engineering.us19.list-manage.com/subscribe/post?u=998670a5dc268a049bab77311&amp;id=fefb7122a3" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to our mailing list</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_998670a5dc268a049bab77311_fefb7122a3" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->

@@ -47,7 +47,7 @@ main() {
   [[ -z "${reason-}" ]] && die "$(usage)"
 
   git checkout master
-  # git pull origin master --rebase
+  git pull origin master --rebase
 
   bundle exec jekyll build
 
