@@ -2,7 +2,7 @@ We are honest engineers
 
 - [Charly](https://twitter.com/whereischarly)
 - [Bryan](https://twitter.com/gearnode)
-- [David](https://twitter.com/mru2_dev)
+- [David](https://twitter.com/mru2dev)
 
 We are a group of fellow engineers who want to share an honest vision of the current state of web engineering. 
 
