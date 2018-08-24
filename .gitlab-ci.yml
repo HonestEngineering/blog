@@ -1,0 +1,28 @@
+image: ruby:2.5
+
+cache:
+  paths:
+    - vendor
+
+.prepare: &prepare
+  before_script:
+    - apt-get update -yqqq
+    - apt-get install -y nodejs
+    - bundle install --deployment
+
+test: &test
+  <<: *prepare
+  script:
+    - bundle exec jekyll build
+    - mv docs public
+  except:
+    - master
+
+pages:
+  <<: *test
+  artifacts:
+    paths:
+      - public
+  except: []
+  only:
+    - master
