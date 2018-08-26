@@ -3,9 +3,12 @@ install:
   - bundle install --path vendor/bundle
 script:
   - bundle exec jekyll build
+  - ls | grep -v docs | xargs rm -rf
+  - mv docs/* .
 
 deploy:
   provider: pages
+  fqdn: honest.engineering
   target-branch: gh-pages
   github-token: $GH_REPO_PAULRBR_TOKEN
   skip-cleanup: true
