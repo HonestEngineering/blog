@@ -1,0 +1,26 @@
+image: ruby:2.5
+
+cache:
+  paths:
+    - vendor
+
+.prepare: &prepare
+  before_script:
+    - bundle install --deployment
+
+test: &test
+  <<: *prepare
+  script:
+    - bundle exec jekyll build
+    - mv docs public
+  except:
+    - master
+
+pages:
+  <<: *test
+  artifacts:
+    paths:
+      - public
+  except: []
+  only:
+    - master
