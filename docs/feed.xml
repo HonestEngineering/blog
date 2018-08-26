@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://honest.engineering/feed.xml" rel="self" type="application/atom+xml" /><link href="https://honest.engineering/" rel="alternate" type="text/html" /><updated>2018-08-26T18:53:46+00:00</updated><id>https://honest.engineering/</id><title type="html">Honest Engineering</title><subtitle>We are a group of fellow engineers who want to share an honest vision of the current state of web engineering.  Most of articles are either self promotions, or too opinionated. We want to share honest and unbiased thought about the current state of tech.  Our mission is to help fellow engineers forge their own opinion on current trendy and controversial subjects.</subtitle><entry><title type="html">Why use GraphQL, good and bad reasons</title><link href="https://honest.engineering/posts/why-use-graphql-good-and-bad-reasons" rel="alternate" type="text/html" title="Why use GraphQL, good and bad reasons" /><published>2018-08-04T10:59:40+00:00</published><updated>2018-08-04T10:59:40+00:00</updated><id>https://honest.engineering/posts/why-use-graphql-good-and-bad-reasons</id><content type="html" xml:base="https://honest.engineering/posts/why-use-graphql-good-and-bad-reasons">&lt;p&gt;To be honest, GraphQL had its dose of hype the last months.&lt;/p&gt;
+
+&lt;p&gt;Went from “indie” to a “commercial” technology with company like &lt;a href=&quot;https://www.graph.cool/&quot;&gt;Prisma&lt;/a&gt;, &lt;a href=&quot;http://apollodata.com/optics/&quot;&gt;Apollo&lt;/a&gt; or even &lt;a href=&quot;https://aws.amazon.com/fr/appsync/&quot;&gt;Amazon&lt;/a&gt; providing professional products and support.&lt;/p&gt;
+
+&lt;p&gt;As for &lt;a href=&quot;https://itnext.io/why-use-typescript-good-and-bad-reasons-ccd807b292fb&quot;&gt;TypeScript&lt;/a&gt; or any new technologies, comes the question:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Should I use this technology? Do I need it?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;If this question appeals to you, then this article is for you.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-bad-reasons&quot;&gt;The bad reasons&lt;/h2&gt;
+
+&lt;h3 id=&quot;graphql-is-a-trending-cool-technology&quot;&gt;GraphQL is a trending cool technology&lt;/h3&gt;
+
+&lt;p&gt;Experienced developers know that we don’t use a technology because everybody uses it.&lt;/p&gt;
+
+&lt;p&gt;Each technology has a purpose and solves one or many particular problems.&lt;/p&gt;
+
+&lt;p&gt;Concerning GraphQL, the main goals of the project was to provide “A query language for your API”. Especially, allowing clients to specify what part of the data they need.&lt;/p&gt;
+
+&lt;p&gt;This is pretty useful when considering mobile applications which have limited bandwidth and speed.&lt;/p&gt;
+
+&lt;p&gt;You will see in the next “con” section that the cool GraphQL technology does not solve all issues neither for frontend or mobile side.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;h3 id=&quot;graphql-solves-all-performance-issues&quot;&gt;GraphQL solves all performance issues&lt;/h3&gt;
+
+&lt;p&gt;A GraphQL API (server) implementation, out of the box, will have better performance than a standard REST API - for the clients.&lt;/p&gt;
+
+&lt;p&gt;Since resolvers are called in parallel, data will load faster.&lt;/p&gt;
+
+&lt;p&gt;However, without resolvers optimisation, like joins, batch systems, your performance gain will not be that impressive - especially against a SQL database with a small pool size.&lt;/p&gt;
+
+&lt;p&gt;Optimising resolvers performance can be complex since it depends on the use of your API.&lt;/p&gt;
+
+&lt;p&gt;Dedicated tools like &lt;a href=&quot;https://www.apollographql.com/engine&quot;&gt;Apollo Engine&lt;/a&gt; will help you identify bottlenecks or your API’s most popular fields, but keep in mind that GraphQL will not magically improve your API performance.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;h3 id=&quot;graphql-is-the-new-rest&quot;&gt;GraphQL is the new REST&lt;/h3&gt;
+
+&lt;p&gt;GraphQL and REST are both very different things, GraphQL is a language and a technology, REST is an architecture pattern.&lt;/p&gt;
+
+&lt;p&gt;Since they both introduced two different solutions, they can be complementary, and in short:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;GraphQL is not the end of REST.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Although GraphQL is very useful to solve complex data exchange, it is “over-engineered” to use it for simple or standard use cases.&lt;/p&gt;
+
+&lt;p&gt;For example, microservices or non-user facing APIs, like APIs exposing data for Business Intelligence or other purposes has no need to provide heavy GraphQL API - after all REST is just HTTP with convention, so, simple to implement and use.&lt;/p&gt;
+
+&lt;p&gt;We will see in the next “con” that GraphQL is not so present in ecosystems other that JavaScript.
+Basically, GraphQL solves everything.&lt;/p&gt;
+
+&lt;p&gt;First, as said in the previous section, GraphQL requires sending JSON to the API in order to get data.&lt;/p&gt;
+
+&lt;p&gt;This can look dumb but, using GraphQL on the client side often requires to use a dedicated library to tackle the language complexity - that’s why we often talk about Apollo GraphQL rather than just GraphQL.&lt;/p&gt;
+
+&lt;p&gt;That’s also why, compared to the simplicity of REST, you need to be sure that your problematics are linked to what GraphQL can solve (see “good reasons”).&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;Secondly, as said in the second point, a GraphQL API server needs optimisations and maintenance.&lt;/p&gt;
+
+&lt;p&gt;Making the graph-oriented way of getting data fit over an SQL database can be tricky.&lt;/p&gt;
+
+&lt;p&gt;And, since it enables easier use on client side, GraphQL will directly move that responsibility to the server side.&lt;/p&gt;
+
+&lt;p&gt;Now, the server has to deal with the client data queries and handle the complexity.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;Finally, GraphQL is born from the JavaScript ecosystem.&lt;/p&gt;
+
+&lt;p&gt;You will feel a real Developer Experience loss by using GraphQL outside a JavaScript ecosystem.
+Let’s take the example of Ruby.&lt;/p&gt;
+
+&lt;p&gt;Even if many people are deeply involved in its Ruby implementation by maintaining graphql-ruby or graphql-client, these involve using Threads and very declarative syntax (class/module based) - are you familiar with Thread safe programming in Ruby?&lt;/p&gt;
+
+&lt;p&gt;Even in others languages or ecosystems, the edge of GraphQL resides in JavaScript and especially in the Apollo project.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-good-reasons&quot;&gt;The good reasons&lt;/h2&gt;
+
+&lt;h3 id=&quot;mobile-first-user-experience&quot;&gt;Mobile first User Experience&lt;/h3&gt;
+
+&lt;p&gt;Definitely, GraphQL is a game changer for building rich UI/UX based mobile applications.&lt;/p&gt;
+
+&lt;p&gt;Forget the “all-in-one” or preload REST endpoint and enjoy the force of GraphQL: loading what you need, when you need it, in a glance.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://honest.engineering/assets/REST-vs-GraphQL-example.png&quot; alt=&quot;GraphQL compared to REST for mobile&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;h3 id=&quot;graphql-will-help-you-handle-complex-schemas&quot;&gt;GraphQL will help you handle complex schemas&lt;/h3&gt;
+
+&lt;h4 id=&quot;for-user-interfaces&quot;&gt;For User Interfaces&lt;/h4&gt;
+
+&lt;p&gt;Is your application based on a Schema using a lot of nested models and associations?&lt;/p&gt;
+
+&lt;p&gt;Does your designer deliver a complex UI showing many resources all-in-one place?&lt;/p&gt;
+
+&lt;p&gt;Since modern UI applications become more and more complex with rich user experience using data far away from the REST CRUD based API, GraphQL comes with a nice solution to Domain Driven APIs.&lt;/p&gt;
+
+&lt;p&gt;By Domain Driven API, building APIs that exposes data schema dedicated to its usage (like computed values, flattened relations)&lt;/p&gt;
+
+&lt;p&gt;Just take the following chat model example:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://honest.engineering/assets/chat-example-models.png&quot; alt=&quot;Example chat models&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Basically a chat can be:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;one-on-one conversation&lt;/li&gt;
+  &lt;li&gt;group conversation&lt;/li&gt;
+  &lt;li&gt;conversation around a post (images, videos or notes)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;Let’s now consider the following associated UI mockup:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://honest.engineering/assets/chat-component-mockup.png&quot; alt=&quot;Example chat UI mockup&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can now easily understand that developing and maintaining these kind of components, especially with realtime and paging can be hard with REST APIs since you will have to deal with many associations, up to 3 nesting levels.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://honest.engineering/assets/chat-models-with-chat-component.png&quot; alt=&quot;Example chat UI mockup with models&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;on-the-server-to-server-side&quot;&gt;On the server-to-server side&lt;/h4&gt;
+
+&lt;p&gt;This example is also true on the “server to server” side.&lt;/p&gt;
+
+&lt;p&gt;GraphQL is not a front-end client only, it can also be used on a server-to-server scenario.&lt;/p&gt;
+
+&lt;p&gt;See the &lt;a href=&quot;http://git-awards.com/&quot;&gt;Github Awards&lt;/a&gt; website that ranks Github users by counting stars on their repos.&lt;/p&gt;
+
+&lt;p&gt;This website has to fetch all users’ repos and count stars, which is totally feasible with REST.&lt;/p&gt;
+
+&lt;p&gt;However, imagine that the maintainers want to update the ranking formula by using:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;user followers count&lt;/li&gt;
+  &lt;li&gt;number of forks for all repos&lt;/li&gt;
+  &lt;li&gt;include repos from organisations that users belongs to.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Then, it will become hard to do with REST.&lt;/p&gt;
+
+&lt;p&gt;Hopefully, Github is one of the rare company that provides a &lt;a href=&quot;https://developer.github.com/v4/&quot;&gt;public GraphQL endpoint&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Fetching all this data will be easy to do and maintain - without even talking about performance.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;This is one of the many “data synchronization” process that is easier to do with GraphQL.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;h3 id=&quot;graphql-as-a-microservice-orchestration-solution&quot;&gt;GraphQL as a microservice orchestration solution&lt;/h3&gt;
+
+&lt;p&gt;GraphQL, especially when used with Apollo Server, provides two killer features for orchestration.&lt;/p&gt;
+
+&lt;p&gt;First, abstracting many REST APIs behind a unified - domain driven - GraphQL Schema.&lt;/p&gt;
+
+&lt;p&gt;Apollo Server &lt;a href=&quot;https://www.apollographql.com/docs/apollo-server/features/data-sources.html#REST-Data-Source&quot;&gt;provides REST DataSource&lt;/a&gt; in order to implement REST API orchestration.&lt;/p&gt;
+
+&lt;p&gt;You will, in a glance, be able to provide to a user-facing API, a unified and optimised public API of your microservices.&lt;/p&gt;
+
+&lt;p&gt;This will allow you to have a better handling of versioning, maturity levels of your APIs through a decoupled architecture.&lt;/p&gt;
+
+&lt;p&gt;Finally, take a look at schema stitching.&lt;/p&gt;
+
+&lt;p&gt;Schema stitching is the process of creating a single GraphQL schema from multiple underlying GraphQL APIs.&lt;/p&gt;
+
+&lt;p&gt;This feature, &lt;a href=&quot;https://www.apollographql.com/docs/graphql-tools/schema-stitching.html&quot;&gt;only available with Apollo Server&lt;/a&gt;, is similar to REST API abstractions.
+However, the cool thing is that, by unifying many GraphQL APIs into one, Apollo will forward types for you, no need to reimplement all abstracted sources resolvers. 🚀&lt;/p&gt;
+
+&lt;p&gt;When it comes to microservices orchestration, GraphQL provides you with two different and complete ways of providing the best architecture for your back-end.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;h3 id=&quot;graphql-will-give-your-team-a-better-developer-experience&quot;&gt;GraphQL will give your team a better Developer Experience&lt;/h3&gt;
+
+&lt;p&gt;If you need to remember one good reason to use GraphQL, stick to Developer Experience.&lt;/p&gt;
+
+&lt;p&gt;GraphQL enhance your developers Experience in many ways, from the language to the ecosystem.&lt;/p&gt;
+
+&lt;h4 id=&quot;descriptive-language-to-handle-complex-data&quot;&gt;Descriptive Language to handle complex data&lt;/h4&gt;
+&lt;p&gt;You can feel that GraphQL is inspired from the JSON syntax, it makes this language easy to learn and understand and also easy to organise in the code (for example using dedicated files)&lt;/p&gt;
+
+&lt;p&gt;Since your data requests are now expressed by a language, stored via strings, it becomes instantly understandable which data your code is manipulating.&lt;/p&gt;
+
+&lt;h4 id=&quot;loading-state-management-simplified&quot;&gt;Loading state management simplified&lt;/h4&gt;
+
+&lt;p&gt;Despite the fact that Apollo can be seen as the “Achilles’ heel” of GraphQL, this library bring exactly what you expect from a framework: more time to focus on the domain centric features, on the actual product.&lt;/p&gt;
+
+&lt;p&gt;Apollo React will handle for you two main technical difficulties.&lt;/p&gt;
+
+&lt;p&gt;Client-side caching by maintaining for you a cache of requested data and keep it updated using Observables.&lt;/p&gt;
+
+&lt;p&gt;The nifty thing is the ability for Apollo to update related objects across many queries.&lt;/p&gt;
+
+&lt;p&gt;The second problem-solved is the Query states mechanism provided by the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Query&amp;gt;&lt;/code&gt; component.&lt;/p&gt;
+
+&lt;p&gt;Apollo enables developers to specify a caching strategy (specific at each query component) and also provides the ability to view components with usefuls informations about the data (loading, state, error).&lt;/p&gt;
+
+&lt;p&gt;This customisation and information allow to build fine-tuned components with great UX.&lt;/p&gt;
+
+&lt;p&gt;At last word about Apollo will mention the ability to customise the default behaviour of Apollo by providing custom links, or even a custom cache implementation.&lt;/p&gt;
+
+&lt;p&gt;Definitely worth taking a look!&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;h4 id=&quot;your-are-manipulating-types&quot;&gt;Your are manipulating types&lt;/h4&gt;
+&lt;p&gt;Finally, remember that REST exposes JSON data while GraphQL exposes types.
+This subtlety creates all the difference when it comes to parse and sent data to an API.&lt;/p&gt;
+
+&lt;p&gt;Since everything is typed in GraphQL, it allows Apollo React to validate data sent on the client side, before reaching the API.&lt;/p&gt;
+
+&lt;p&gt;Finally, Apollo provides type generation tools for TypeScript, Flow and also Swift for mobile development.
+This is an awesome feature because, if your clients use types provided by your API, then your clients business logic become safer (for example: compared to plain JS)&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;h3 id=&quot;pros&quot;&gt;Pros&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Helps providing a mobile first user experience&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Since mobile apps have rich UIs and are used over slow networks, GraphQL will help you to load only the relevant data without killing the Developer Experience.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Helps you handle complex schema&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Since modern UI applications become more and more complex with rich UX using data far away from the REST CRUD based API, GraphQL allows you to combine data from different sources.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Microservices orchestration solution&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;GraphQL, especially with Apollo Server, provides many features to hide backend complexity from clients.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Give your team a better Developer Experience&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;GraphQL is not just a new way to query data, it also enhances the way your team (front-mobile/back) will work together.&lt;/p&gt;
+
+&lt;p&gt;GraphQL also facilitates the creation of great UX by making loading and dealing with data easier.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;h3 id=&quot;cons&quot;&gt;Cons&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Using a technology based on its popularity is not enough&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Since a technology solves one or many specific issues, popularity is never sufficient to validate a technology choice.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;GraphQL will not solve all your performance issues out the box&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;GraphQL isn’t a performance optimiser tool, you are still responsible to improve performance.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;GraphQL is not REST and will not replace it&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;GraphQL and REST are two different things and deserve their place in the web technologies world.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;GraphQL won’t solve all your problems&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;GraphQL will help you build rich mobile or web clients.&lt;/p&gt;
+
+&lt;p&gt;It can also helps you to improve data related backend - like indexing jobs.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;div style=&quot;text-align: right;&quot;&gt;
+&lt;em&gt;
+Honest Engineers.
+&lt;/em&gt;
+&lt;div&gt;
+&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><category term="Feedback" /><summary type="html">To be honest, GraphQL had its dose of hype the last months.</summary></entry></feed>
