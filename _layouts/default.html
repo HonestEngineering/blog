@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  {% include head.html %}
+
+  <body>
+    <nav class="nav">
+      <div class="nav-container">
+        <a href="{{ site.baseurl }}/">
+          <h2 class="nav-title">{{ site.title }}</h2>
+        </a>
+        <ul>
+          <li><a href="{{ '/about' | prepend: site.baseurl }}">About</a></li>
+          <li><a href="{{ site.baseurl }}/">Posts</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+      {{ content }}
+    </main>
+
+    <footer>
+      <p>
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">
+          <img alt="Creative Commons License" style="border-width:0"
+               src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
+        </a>
+      </p>
+      <span>
+        This work is licensed under a
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
+          Creative Commons Attribution-ShareAlike 3.0 Unported License</a>
+        <time datetime="{{ site.time }}">{{ site.time | date: '%Y' }}</time> {{ site.author.name }}. <a href="{{ site.source_url }}/tree/master/{{ page.path }}">Source code</a>. <br />
+        Made with Jekyll using a <a href="https://github.com/HonestEngineering/tale">modified</a> version of the <a href="https://github.com/chesterhow/tale/">Tale</a> theme.
+      </span>
+    </footer>
+  </body>
+</html>
