@@ -1,37 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://honest.engineering/feed.xml" rel="self" type="application/atom+xml" /><link href="https://honest.engineering/" rel="alternate" type="text/html" /><updated>2018-10-20T15:00:18+00:00</updated><id>https://honest.engineering/</id><title type="html">Honest Engineering</title><subtitle>We are a group of fellow engineers who want to share an honest vision of the current state of web engineering. Most of articles are either self promotions, or too opinionated. We want to share honest and unbiased thought about the current state of tech. Our mission is to help fellow engineers forge their own opinion on current trendy and controversial subjects.</subtitle><entry><title type="html">Hash Functions survival guide</title><link href="https://honest.engineering/posts/hash-functions-survival-guide" rel="alternate" type="text/html" title="Hash Functions survival guide" /><published>2018-10-20T14:03:00+00:00</published><updated>2018-10-20T14:03:00+00:00</updated><id>https://honest.engineering/posts/hash-functions-survival-guide</id><content type="html" xml:base="https://honest.engineering/posts/hash-functions-survival-guide">&lt;style&gt;
-  h2 {
-    margin-top: 3em;
-  }
-  h3 {
-    margin-top: 2em;
-  }
-  table {
-  width: 100%;
-    border: 1px solid #cbcbcb;
-   border-collapse: collapse;
-   border-spacing: 0;
-   margin: 1.5em 0em;
-   }
-thead {
-    background-color: #e0e0e0;
-    color: #000;
-    text-align: left;
-    vertical-align: bottom;
-}
- td:first-child,  th:first-child {
-    border-left-width: 0;
-}
- td,  th {
-    border-left: 1px solid #cbcbcb;
-    border-width: 0 0 0 1px;
-    font-size: inherit;
-    margin: 0;
-    overflow: visible;
-    padding: .5em 1em;
-}
-&lt;/style&gt;
-
-&lt;p&gt;Hash functions are one of the building blocks behind robust solutions to solve architectural problems every developer will encounter in their career, like how to securely store passwords or how to distribute work across many servers.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://honest.engineering/feed.xml" rel="self" type="application/atom+xml" /><link href="https://honest.engineering/" rel="alternate" type="text/html" /><updated>2018-10-20T15:11:44+00:00</updated><id>https://honest.engineering/</id><title type="html">Honest Engineering</title><subtitle>We are a group of fellow engineers who want to share an honest vision of the current state of web engineering. Most of articles are either self promotions, or too opinionated. We want to share honest and unbiased thought about the current state of tech. Our mission is to help fellow engineers forge their own opinion on current trendy and controversial subjects.</subtitle><entry><title type="html">Hash Functions survival guide</title><link href="https://honest.engineering/posts/hash-functions-survival-guide" rel="alternate" type="text/html" title="Hash Functions survival guide" /><published>2018-10-20T14:03:00+00:00</published><updated>2018-10-20T14:03:00+00:00</updated><id>https://honest.engineering/posts/hash-functions-survival-guide</id><content type="html" xml:base="https://honest.engineering/posts/hash-functions-survival-guide">&lt;p&gt;Hash functions are one of the building blocks behind robust solutions to solve architectural problems every developer will encounter in their career, like how to securely store passwords or how to distribute work across many servers.&lt;/p&gt;
 
 &lt;p&gt;To be honest, while their concepts are well known, they can also easily be misused.&lt;/p&gt;
 
@@ -253,7 +220,40 @@ While these algorithm are open, you should avoid reimplementing them, and try to
   &lt;li&gt;&lt;a href=&quot;https://blueprintinteractive.com/blog/securing-your-api-hmac-authentication&quot;&gt;A guide to HMAC API authentication&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://hackernoon.com/probabilistic-data-structures-bloom-filter-5374112a7832&quot;&gt;An introduction to bloom filters&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://csrc.nist.gov/Projects/Hash-Functions/NIST-Policy-on-Hash-Functions&quot;&gt;The current NIST policy on hash functions&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="Tips" /><summary type="html"></summary></entry><entry><title type="html">Why use GraphQL, good and bad reasons</title><link href="https://honest.engineering/posts/why-use-graphql-good-and-bad-reasons" rel="alternate" type="text/html" title="Why use GraphQL, good and bad reasons" /><published>2018-08-04T10:59:40+00:00</published><updated>2018-08-04T10:59:40+00:00</updated><id>https://honest.engineering/posts/why-use-graphql-good-and-bad-reasons</id><content type="html" xml:base="https://honest.engineering/posts/why-use-graphql-good-and-bad-reasons">&lt;p&gt;To be honest, GraphQL had its dose of hype the last months.&lt;/p&gt;
+&lt;/ul&gt;
+
+&lt;style&gt;
+  h2 {
+    margin-top: 3em;
+  }
+  h3 {
+    margin-top: 2em;
+  }
+  table {
+    width: 100%;
+    border: 1px solid #cbcbcb;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 1.5em 0em;
+  }
+  thead {
+    background-color: #e0e0e0;
+    color: #000;
+    text-align: left;
+    vertical-align: bottom;
+  }
+  td:first-child,  th:first-child {
+    border-left-width: 0;
+  }
+  td, th {
+    border-left: 1px solid #cbcbcb;
+    border-width: 0 0 0 1px;
+    font-size: inherit;
+    margin: 0;
+    overflow: visible;
+    padding: .5em 1em;
+  }
+&lt;/style&gt;</content><author><name></name></author><category term="Tips" /><summary type="html">Hash functions are one of the building blocks behind robust solutions to solve architectural problems every developer will encounter in their career, like how to securely store passwords or how to distribute work across many servers.</summary></entry><entry><title type="html">Why use GraphQL, good and bad reasons</title><link href="https://honest.engineering/posts/why-use-graphql-good-and-bad-reasons" rel="alternate" type="text/html" title="Why use GraphQL, good and bad reasons" /><published>2018-08-04T10:59:40+00:00</published><updated>2018-08-04T10:59:40+00:00</updated><id>https://honest.engineering/posts/why-use-graphql-good-and-bad-reasons</id><content type="html" xml:base="https://honest.engineering/posts/why-use-graphql-good-and-bad-reasons">&lt;p&gt;To be honest, GraphQL had its dose of hype the last months.&lt;/p&gt;
 
 &lt;p&gt;Went from “indie” to a “commercial” technology with company like &lt;a href=&quot;https://www.graph.cool/&quot;&gt;Prisma&lt;/a&gt;, &lt;a href=&quot;http://apollodata.com/optics/&quot;&gt;Apollo&lt;/a&gt; or even &lt;a href=&quot;https://aws.amazon.com/fr/appsync/&quot;&gt;Amazon&lt;/a&gt; providing professional products and support.&lt;/p&gt;
 
