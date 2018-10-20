@@ -5,39 +5,6 @@ date:   2018-10-20 16:03:00 +0200
 tags: Tips
 ---
 
-<style>
-  h2 {
-    margin-top: 3em;
-  }
-  h3 {
-    margin-top: 2em;
-  }
-  table {
-  width: 100%;
-    border: 1px solid #cbcbcb;
-   border-collapse: collapse;
-   border-spacing: 0;
-   margin: 1.5em 0em;
-   }
-thead {
-    background-color: #e0e0e0;
-    color: #000;
-    text-align: left;
-    vertical-align: bottom;
-}
- td:first-child,  th:first-child {
-    border-left-width: 0;
-}
- td,  th {
-    border-left: 1px solid #cbcbcb;
-    border-width: 0 0 0 1px;
-    font-size: inherit;
-    margin: 0;
-    overflow: visible;
-    padding: .5em 1em;
-}
-</style>
-
 Hash functions are one of the building blocks behind robust solutions to solve architectural problems every developer will encounter in their career, like how to securely store passwords or how to distribute work across many servers.
 
 To be honest, while their concepts are well known, they can also easily be misused.
@@ -207,3 +174,38 @@ If you wish to dig deeper, there are resources on the [security](https://securit
 - [A guide to HMAC API authentication](https://blueprintinteractive.com/blog/securing-your-api-hmac-authentication)
 - [An introduction to bloom filters](https://hackernoon.com/probabilistic-data-structures-bloom-filter-5374112a7832)
 - [The current NIST policy on hash functions](https://csrc.nist.gov/Projects/Hash-Functions/NIST-Policy-on-Hash-Functions)
+
+<style>
+  h2 {
+    margin-top: 3em;
+  }
+  h3 {
+    margin-top: 2em;
+  }
+  table {
+    width: 100%;
+    border: 1px solid #cbcbcb;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 1.5em 0em;
+  }
+  thead {
+    background-color: #e0e0e0;
+    color: #000;
+    text-align: left;
+    vertical-align: bottom;
+  }
+  td:first-child,  th:first-child {
+    border-left-width: 0;
+  }
+  td, th {
+    border-left: 1px solid #cbcbcb;
+    border-width: 0 0 0 1px;
+    font-size: inherit;
+    margin: 0;
+    overflow: visible;
+    padding: .5em 1em;
+  }
+</style>
+
+
