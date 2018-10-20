@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+    
+      Hash Functions survival guide &middot; Honest Engineering
+    
+  </title>
+
+  <!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Hash Functions survival guide | Honest Engineering</title>
+<meta name="generator" content="Jekyll v3.8.3" />
+<meta property="og:title" content="Hash Functions survival guide" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="We are a group of fellow engineers who want to share an honest vision of the current state of web engineering. Most of articles are either self promotions, or too opinionated. We want to share honest and unbiased thought about the current state of tech. Our mission is to help fellow engineers forge their own opinion on current trendy and controversial subjects." />
+<meta property="og:description" content="We are a group of fellow engineers who want to share an honest vision of the current state of web engineering. Most of articles are either self promotions, or too opinionated. We want to share honest and unbiased thought about the current state of tech. Our mission is to help fellow engineers forge their own opinion on current trendy and controversial subjects." />
+<link rel="canonical" href="https://honest.engineering/posts/hash-functions-survival-guide" />
+<meta property="og:url" content="https://honest.engineering/posts/hash-functions-survival-guide" />
+<meta property="og:site_name" content="Honest Engineering" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-10-20T14:03:00+00:00" />
+<script type="application/ld+json">
+{"description":"We are a group of fellow engineers who want to share an honest vision of the current state of web engineering. Most of articles are either self promotions, or too opinionated. We want to share honest and unbiased thought about the current state of tech. Our mission is to help fellow engineers forge their own opinion on current trendy and controversial subjects.","@type":"BlogPosting","url":"https://honest.engineering/posts/hash-functions-survival-guide","headline":"Hash Functions survival guide","dateModified":"2018-10-20T14:03:00+00:00","datePublished":"2018-10-20T14:03:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://honest.engineering/posts/hash-functions-survival-guide"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123796540-1"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-123796540-1', { anonymize_ip: true });
+  </script>
+</head>
+
+
+  <body>
+    <nav class="nav">
+      <div class="nav-container">
+        <a href="/">
+          <h2 class="nav-title">Honest Engineering</h2>
+        </a>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/">Posts</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+      <div class="post">
+  
+    <div class="post-info">
+        <br>
+        <span>Tips written on&nbsp;</span><time datetime="2018-10-20 14:03:00 +0000">October 20, 2018</time>
+    </div>
+  
+
+  <h1 class="post-title">Hash Functions survival guide</h1>
+  <div class="post-line"></div>
+
+  <style>
+  h2 {
+    margin-top: 3em;
+  }
+  h3 {
+    margin-top: 2em;
+  }
+  table {
+  width: 100%;
+    border: 1px solid #cbcbcb;
+   border-collapse: collapse;
+   border-spacing: 0;
+   margin: 1.5em 0em;
+   }
+thead {
+    background-color: #e0e0e0;
+    color: #000;
+    text-align: left;
+    vertical-align: bottom;
+}
+ td:first-child,  th:first-child {
+    border-left-width: 0;
+}
+ td,  th {
+    border-left: 1px solid #cbcbcb;
+    border-width: 0 0 0 1px;
+    font-size: inherit;
+    margin: 0;
+    overflow: visible;
+    padding: .5em 1em;
+}
+</style>
+
+<p>Hash functions are one of the building blocks behind robust solutions to solve architectural problems every developer will encounter in their career, like how to securely store passwords or how to distribute work across many servers.</p>
+
+<p>To be honest, while their concepts are well known, they can also easily be misused.</p>
+
+<p>This article hopes to shed some light on how to safely leverage them for some standard use-cases.</p>
+
+<h3 id="a-note-on-terminology">A note on Terminology</h3>
+<p>Depending on your community or programming language of choice, you may know some constructs and applications under different terms.</p>
+
+<p>This article will use the following nomenclature:</p>
+
+<p>A <em>hash function</em> refers to the implementation in which, given an arbitrary input, returns a deterministic output</p>
+
+<p>This function implements a <em>hash algorithm</em></p>
+
+<p>A <em>hash</em> (which you may know as a <em>digest</em> or <em>hash code</em>) refers to the function’s output</p>
+
+<p><img src="https://honest.engineering/assets/tips-hash-1.png" alt="A hash functions implements a hash algorithm to generate a hash code" /></p>
+
+<h2 id="do--know-how-a-hash-function-work">Do : know how a hash function work</h2>
+
+<p>A hash function is a deterministic function in which, given an arbitrary large input, returns a deterministic, fixed-size output. E.g, the <a href="https://en.wikipedia.org/wiki/MurmurHash#Algorithm">MurmurHash3 function</a>, in its 32 bits variant, will map any input to a 32 bit hash code :</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Input</th>
+      <th>Input size</th>
+      <th>Output</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>The “foo” ASCII string</td>
+      <td>3B</td>
+      <td><code class="highlighter-rouge">0x1764df7f</code></td>
+    </tr>
+    <tr>
+      <td>The entire <a href="https://gist.github.com/provpup/2fc41686eab7400b796b">Hamlet</a> play</td>
+      <td>188kB</td>
+      <td><code class="highlighter-rouge">0x2b881d54</code></td>
+    </tr>
+    <tr>
+      <td>The <a href="https://upload.wikimedia.org/wikipedia/en/7/7d/Lenna_%28test_image%29.png">lenna</a> test image</td>
+      <td>468kB</td>
+      <td><code class="highlighter-rouge">0x001fad14</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This implies that an infinite input space is mapped to a finite number of outputs. Therefore, there must be some inputs which return the same hash code. These are known as <strong>collisions</strong>. Most use cases leverage the pseudo-uniqueness of hash codes, so you want to avoid them.</p>
+
+<p>Since a function which always returns 42 can be considered a hash function under these terms, industrial-use hash algorithms are expected to meet the following criteria :</p>
+
+<ol>
+  <li>
+    <p><strong>Uniformity</strong> : Their output should be evenly distributed into the output space. E.g, still using the MurmurHash3 as an example :</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Input (ASCII String)</th>
+          <th>Output (32bit unsigned int)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>foo</td>
+          <td>4138058784</td>
+        </tr>
+        <tr>
+          <td>fou</td>
+          <td>2660153266</td>
+        </tr>
+        <tr>
+          <td>boo</td>
+          <td>389335901</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p><strong>Determinism</strong> : Given an input, the hash function shall always return the same output</p>
+  </li>
+</ol>
+
+<p>Each algorithm has a given length, which refers to the number of bits of the hash codes it generates. E.g, SHA-256 generate 256 bits hash codes, and murmur3 can be configured to generate 32 bits or 128 bits hash codes. Generally, short hashes are faster to generate, and lighter to manipulate, but have a greater collision risk.</p>
+
+<h2 id="do--know-the-difference-between-crypto-and-non-crypto-hash-algorithms">Do : know the difference between crypto and non-crypto hash algorithms</h2>
+
+<p>A subset of hash algorithms can be considered <strong>cryptographic hash algorithms</strong>, if they meet these additional criteria :</p>
+<ol>
+  <li><strong>Preimage resistance</strong> : Given a hash code, it should be hard to generate a message having the same hash code</li>
+  <li><strong>Second-preimage resistance</strong> : Given a message, it should be hard to find a second message having the same hash code</li>
+  <li><strong>Collision resistance</strong> : It should be hard to find two distinct messages having the same hash code</li>
+</ol>
+
+<p>By “hard”, we mean that brute forcing all inputs should be the fastest approach.</p>
+
+<p>The <strong>SHA-2</strong> family are a widely-implemented and respected collection of cryptographic hash algorithms. When in doubt, they should not be a bad choice. MD5 and SHA-1 should be avoided, as their collision resistance has been broken by the advancement of computation speed.</p>
+
+<p>Concerning <strong>non-crypto hashes</strong>, your language of choice should already have an existing implementation (e.g : ruby has Object#hash, based on the murmur2 algorithm). If that is the case, <strong>trust it and use it</strong>. More than the implementation, you want to leverage the years of optimization work on multiple hardware architectures.</p>
+
+<p>If your language does not have a native implementation of a good non-crypto hash algorithm, you may use one of the following ones :</p>
+
+<ul>
+  <li>Murmur3</li>
+  <li>FNV Hash</li>
+  <li>CityHash</li>
+  <li>xxHash</li>
+</ul>
+
+<h2 id="dont--roll-your-own-implementations">Don’t : roll your own implementations</h2>
+
+<p>This article will reference some well known and standard hash algorithms.
+While these algorithm are open, you should avoid reimplementing them, and try to use existing implementations :</p>
+
+<ul>
+  <li>Standard hash algorithms are likely to have been optimized down to the hardware level</li>
+  <li>Crypto algorithms have been audited by people way smarter than you or me</li>
+</ul>
+
+<p>If your platform does not come with native implementations, <a href="https://download.libsodium.org/doc/">libsodium</a> is a very well made library which contains all the functions you may need.</p>
+
+<h2 id="dont--use-a-crypto-hash-algorithm-for-non-sensitive-uses">Don’t : use a crypto hash algorithm for non-sensitive uses</h2>
+
+<p>Crypto or non-crypto, every good hash function gives you a strong uniformity guarantee. Crypto hashes are however slower, and tend to generate larger codes (256 bits or more)</p>
+
+<p>Using them to implement a bucketing strategy for 100 servers would be over-engineering. Just use a simple, fast, non-crypto algorithm for it.</p>
+
+<h2 id="do--use-the-right-encoding-for-your-use-case">Do : use the right encoding for your use case</h2>
+
+<p>Hash functions typically return binary hash codes.</p>
+
+<p>Depending on your use case, you should know which encoding is better suited for a use case.</p>
+
+<p>For example, the hash code of the ASCII string “foo” can be encoded as :</p>
+<ul>
+  <li>A <strong>uint32</strong> <code class="highlighter-rouge">4138058784</code> easy to modulo for bucketing</li>
+  <li>A <strong>hex code</strong> <code class="highlighter-rouge">0xf6a5c420</code> for machine-to-machine exchange</li>
+  <li>A <strong>binary code</strong> <code class="highlighter-rouge">0bx11110110101001011100010000100000</code> for storage</li>
+  <li>A <strong>Base64 code</strong> <code class="highlighter-rouge">IMSl9g</code> for lightweight HTTP transfer</li>
+</ul>
+
+<h2 id="do--leverage-hashes-for-bucketing">Do : leverage hashes for bucketing</h2>
+
+<p>The most well known application of hash functions are <strong>hash tables</strong>. A hash table is a data structure mapping keys to value, enabling fast data lookup by partitioning its values into a select number of <strong>buckets</strong>. The hash code of the key can be transformed into a deterministic bucket index in constant time. You’re effectively trading a small constant hash computation cost for a 0(1) lookup complexity.</p>
+
+<p><img src="https://honest.engineering/assets/tips-hash-2.png" alt="Sample hash table algorithm" /></p>
+
+<p>The cool property of hash tables is that they ensure a good data repartition without any pre-existing knowledge of the data going into it. You can use the same approach for any <strong>deterministic stateless pseudo-random attribution</strong> : e.g balancing jobs on workers, payloads on servers, or riders on drivers.</p>
+
+<h2 id="dont--use-a-naive-bucketing-strategy-for-a-variable-amount-of-buckets">Don’t : use a naive bucketing strategy for a variable amount of buckets</h2>
+
+<p>A standard bucketing strategy consists of modulo-ing the data hash code with the number of buckets. As the hash function is uniform, this guarantees an eventual uniform repartition of resources between the buckets.</p>
+
+<p>This strategy is not robust when faced with a varying amount of buckets, especially when migration costs are high, like in distributed hash tables. When having N buckets, adding or removing one means that almost all the data needs to be redistributed between the buckets.</p>
+
+<p>Using a division instead of a modulo is better, but still implies that all buckets need to reallocate data.</p>
+
+<p>The right solution for this is using <a href="https://en.wikipedia.org/wiki/Consistent_hashing">consistent hashing</a>. While this diminishes the uniformity of the data repartition, you gain the guarantee that adding / removing a bucket means that only one bucket needs to have its data migrated.</p>
+
+<h2 id="dont--use-a-raw-hash-for-message-signing">Don’t : use a raw hash for message signing</h2>
+
+<p>Another common use of hash functions is for message signing. This can done using a hash-based message authentication code, or <strong>HMAC</strong>.</p>
+
+<p>While a cryptographic hash function can assert the integrity of a message (i.e the message has not been tampered with during transfer), a HMAC also asserts its authenticity (i.e the messages comes from the sender). This mechanism is enabled via a shared secret key between the sender and the recipient.</p>
+
+<p><img src="https://honest.engineering/assets/tips-hash-3.png" alt="HMAC uses a key as a parameter for digest generation" /></p>
+
+<p>At first glance, transmitting the hash of a concatenation of the message and the secret key may seem to do the same job.</p>
+
+<p>However, many hash algorithms, including SHA-2, are vulnerable against length extension attacks (meaning that - knowing the hash code and message length - it is possible to generate data which when appended to the message will keep the hash code valid).</p>
+
+<p>The HMAC algorithm provides immunity against this kind of attacks. Its design makes it secure even when used with insecure hash functions (MD5 or SHA-1).</p>
+
+<p>In short, when you need a stateless way to validate that a payload comes from a trusted sender, and has not been tampered with, send a HMAC-SHA2 code alongside it. If you want to protect yourself against replay attacks, it is as easy as including a timestamp in the payload.</p>
+
+<p>Common use cases in the wild include API authentication (e.g AWS) and JSON web tokens.</p>
+
+<h2 id="dont--use-sha-for-password-hashes">Don’t : use SHA for password hashes</h2>
+
+<p>Storing passwords in clear text is evil. While security best practices and password managers are on the rise, the vast majority of users reuse their passwords on multiple services. It is your duty to ensure that, in the event your database is comprised, the impact on your users is limited.</p>
+
+<p>At a minimum, the passwords you store should be</p>
+
+<ul>
+  <li>Cryptographically hashed (so while you can easily verify a match, the original plaintext one is not deducible from the hash)</li>
+  <li>Salted (in order to be robust against rainbow table attacks)</li>
+</ul>
+
+<p>While these practices are not bad per-ser, a standard hash function won’t do. Hash algorithms, even cryptographic ones, are so ubiquitous in today’s tech that their implementation must be <strong>fast</strong>.</p>
+
+<p>Since your adversary knows both the hash and salt, and can with his GPU compute a billions SHA-256 hash codes per second, you have to use a hash function specifically <strong>designed to be slow</strong>.</p>
+
+<p>You should use</p>
+
+<ul>
+  <li><em>Argon2</em> : the most recent one, winner of the 2015 password hashing competition</li>
+  <li><em>BCrypt</em> : an older one, more vulnerable to hardware-optimize attacks, but more vetted and maybe already part of your standard library</li>
+</ul>
+
+<p>In short, when storing passwords, generate a secure and long hash, hash it with a slow hash function, and store only the hash and the salt.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>We hope these tips helped expand your knowledge of what hash functions can and cannot do. Hopefully you won’t make the same mistakes we did before learning these.</p>
+
+<p>This article is only scratching the surface of the subject. Security is a complicated field, and there are still some debate in the community on certain points (e.g whether you should use SHA-3 or not).</p>
+
+<p>If you wish to dig deeper, there are resources on the <a href="https://security.stackexchange.com">security</a> and <a href="https://crypto.stackexchange.com.">crypto</a> stackexchanges.</p>
+
+<h3 id="more-resources">More resources</h3>
+
+<ul>
+  <li><a href="https://security.stackexchange.com/questions/211/how-to-securely-hash-passwords/31846#31846">Comparison of password hashing algorithms</a></li>
+  <li><a href="https://crackstation.net/hashing-security.htm">Why / how should you hash passwords</a></li>
+  <li><a href="https://download.libsodium.org/doc/">The libsodium crypto primitives</a></li>
+  <li><a href="https://www.toptal.com/big-data/consistent-hashing">A guide to consistent hashing</a></li>
+  <li><a href="https://blueprintinteractive.com/blog/securing-your-api-hmac-authentication">A guide to HMAC API authentication</a></li>
+  <li><a href="https://hackernoon.com/probabilistic-data-structures-bloom-filter-5374112a7832">An introduction to bloom filters</a></li>
+  <li><a href="https://csrc.nist.gov/Projects/Hash-Functions/NIST-Policy-on-Hash-Functions">The current NIST policy on hash functions</a></li>
+</ul>
+
+
+  <p>
+      &nbsp;
+  </p>
+
+  
+    <div style="text-align:center">
+        <a
+        class="twitter-share-button"
+        href="https://twitter.com/intent/tweet?text=Hash%20Functions%20survival%20guide%20-%20Honest%20Engineering&url=https://honest.engineering/posts/hash-functions-survival-guide"
+        data-size="large"
+      >
+        Tweet
+      </a>
+    </div>
+  
+
+</div>
+
+<div class="pagination">
+  
+  
+    <a href="/posts/why-use-graphql-good-and-bad-reasons" class="right arrow">&#8594;</a>
+  
+
+  <a href="#" class="top">Top</a>
+</div>
+
+<script>window.twttr = (function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0],
+  t = window.twttr || {};
+if (d.getElementById(id)) return t;
+js = d.createElement(s);
+js.id = id;
+js.src = "https://platform.twitter.com/widgets.js";
+fjs.parentNode.insertBefore(js, fjs);
+
+t._e = [];
+t.ready = function(f) {
+  t._e.push(f);
+};
+
+return t;
+}(document, "script", "twitter-wjs"));</script>
+
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<div class="pagination">
+  &nbsp;
+</div>
+
+<!-- Begin MailChimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://engineering.us19.list-manage.com/subscribe/post?u=998670a5dc268a049bab77311&amp;id=fefb7122a3" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Get notified when a new post is published!</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_998670a5dc268a049bab77311_fefb7122a3" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+
+
+    </main>
+
+    <footer>
+      <p>
+        <a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US">
+          <img alt="Creative Commons License" style="border-width:0"
+               src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
+        </a>
+      </p>
+      <span>
+        This work is licensed under a
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
+          Creative Commons Attribution-ShareAlike 3.0 Unported License</a>
+        <time datetime="2018-10-20 15:00:18 +0000">2018</time> . <a href="https://github.com/honestengineering/blog/tree/master/_posts/2018-10-10-hash-functions-survival-guide.markdown">Source code</a>. <br />
+        Made with Jekyll using a <a href="https://github.com/HonestEngineering/tale">modified</a> version of the <a href="https://github.com/chesterhow/tale/">Tale</a> theme.
+      </span>
+    </footer>
+  </body>
+</html>
