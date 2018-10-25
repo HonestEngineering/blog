@@ -37,7 +37,7 @@ Articles to give feedback about subjects considered as part our expertise or kno
 *Example: "Why use GraphQL, good and bad reasons"*
 
 #### Essays
-Thoughts about technical or non-technical subjects but still related to Engineering
+Thoughts about engineering-related subjects
 
 *Example: "What is a Senior Software Engineer?"*
 
