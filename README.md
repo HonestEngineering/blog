@@ -4,12 +4,13 @@ We are honest engineers
 - [Bryan](https://twitter.com/gearnode)
 - [David](https://twitter.com/mru2dev)
 - [Paul](https://twitter.com/paulRb_r)
+- [Stephanie](https://twitter.com/steph_baltus)
 
-We are a group of fellow engineers who want to share an honest vision of the current state of web engineering. 
+We are a group of fellow engineers who want to share an honest vision of the current state of web engineering.
 
 Most of articles are either self promotions, or too opinionated.
 
-We want to share honest and unbiased thought about the current state of tech. 
+We want to share honest and unbiased thought about the current state of tech.
 
 Our mission is to help fellow engineers forge their own opinion on current trendy and controversial subjects.
 
@@ -30,8 +31,8 @@ Articles to give feedback about subjects considered as part our expertise or kno
 
 *Example: "Why use GraphQL, good and bad reasons"*
 
-#### Culture, Life
-General thought about non-technical subjects but still related to Engineering (organisational, … )
+#### Essays
+Thoughts about engineering-related subjects
 
 *Example: "What is a Senior Software Engineer?"*
 
