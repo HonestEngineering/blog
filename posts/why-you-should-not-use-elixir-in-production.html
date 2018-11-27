@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+    
+      Why you should not use Elixir in production &middot; Honest Engineering
+    
+  </title>
+
+  <!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Why you should not use Elixir in production | Honest Engineering</title>
+<meta name="generator" content="Jekyll v3.8.3" />
+<meta property="og:title" content="Why you should not use Elixir in production" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Elixir is a pretty awesome new language based on the Erlang VM that offers some cool features like: high concurrency model, fast execution time, clustering and stateful made easy." />
+<meta property="og:description" content="Elixir is a pretty awesome new language based on the Erlang VM that offers some cool features like: high concurrency model, fast execution time, clustering and stateful made easy." />
+<link rel="canonical" href="https://honest.engineering/posts/why-you-should-not-use-elixir-in-production" />
+<meta property="og:url" content="https://honest.engineering/posts/why-you-should-not-use-elixir-in-production" />
+<meta property="og:site_name" content="Honest Engineering" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-11-27T15:03:00+00:00" />
+<script type="application/ld+json">
+{"description":"Elixir is a pretty awesome new language based on the Erlang VM that offers some cool features like: high concurrency model, fast execution time, clustering and stateful made easy.","@type":"BlogPosting","url":"https://honest.engineering/posts/why-you-should-not-use-elixir-in-production","headline":"Why you should not use Elixir in production","dateModified":"2018-11-27T15:03:00+00:00","datePublished":"2018-11-27T15:03:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://honest.engineering/posts/why-you-should-not-use-elixir-in-production"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123796540-1"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-123796540-1', { anonymize_ip: true });
+  </script>
+</head>
+
+
+  <body>
+    <nav class="nav">
+      <div class="nav-container">
+        <a href="/">
+          <h2 class="nav-title">Honest Engineering</h2>
+        </a>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/">Posts</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+      <div class="post">
+  
+    <div class="post-info">
+        <br>
+        <span>Feedback written on&nbsp;</span><time datetime="2018-11-27 15:03:00 +0000">November 27, 2018</time>
+    </div>
+  
+
+  <h1 class="post-title">Why you should not use Elixir in production</h1>
+  <div class="post-line"></div>
+
+  <p><a href="https://elixir-lang.org/">Elixir</a> is a pretty awesome new language based on the Erlang VM that offers some cool features like: high concurrency model, fast execution time, clustering and stateful made easy.</p>
+
+<p>However, the real question is:</p>
+
+<blockquote>
+  <p>Should we use Elixir in production?</p>
+</blockquote>
+
+<p>&nbsp;</p>
+
+<p>One way to prove a technology is suitable for production, is for it to verify the “Production Grade Application”.</p>
+
+<p>As <a href="https://kubernetes.io/blog/2018/08/03/out-of-the-clouds-onto-the-ground-how-to-make-kubernetes-production-grade-anywhere/">explained by Kubernetes</a>, production grade can be summarized as:</p>
+
+<blockquote>
+  <p>“anticipating accidents and preparing for recovery with minimal pain and delay”</p>
+</blockquote>
+
+<p>&nbsp;</p>
+
+<p>To simplify, we will define “Production Grade Application” into 3 guidelines:</p>
+
+<ul>
+  <li><strong>Monitorable</strong> - ex: <em>we should be able to detect and diagnose failure easily</em></li>
+  <li><strong>Easy to deploy</strong> - ex: <em>deployment should be easy and automatable</em></li>
+  <li><strong>Stable</strong> - ex: <em>updating our dependencies should be safe and easy</em></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p>You are brainstorming about building your next application with Elixir?</p>
+
+<p>This post will show us if Elixir fulfill the “Production Grade Application” guidelines.</p>
+
+<h2 id="stable">Stable</h2>
+
+<p>As young language, Elixir moves fast!</p>
+
+<p>While rapid evolution of a language is a good thing, it may lead to many collateral effects.</p>
+
+<p>Elixir is not an exception to this rule.</p>
+
+<h3 id="compilation-noises">Compilation noises</h3>
+
+<p>Elixir has a cool philosophy: no breaking change for all minor releases.</p>
+
+<p>However, Elixir introduce deprecations in many minor releases that leads to some compilation warnings.</p>
+
+<p>Fixing compilation warning in your codebase is quick and simple, but fixing compilation warning emitted by third party libraries is not possible.</p>
+
+<p>Indeed, many third party libraries want to be compatible with older Elixir versions.</p>
+
+<p>This constraints add noises in the Elixir compilation logs and can mask an important warning.</p>
+
+<p>However, using <code class="highlighter-rouge">mix deps.compile</code> before <code class="highlighter-rouge">mix compile</code> avoid third party libraries compilation warning, by splitting the compilation in two steps:</p>
+<ol>
+  <li>Compile dependencies (third party libraries emit compilation warning in this step)</li>
+  <li>Compile the application code (only application warning in this step)</li>
+</ol>
+
+<h3 id="community">Community</h3>
+
+<p>The community is small and have support on tricky issue is not easy.</p>
+
+<p>A simple example is the number of question posted on stackoverflow with the Elixir tag ~6 000 questions v.s. ~ 1 000 000 questions for Python languages.</p>
+
+<p>The ratio of answered questions for elixir is 1/6 when  python have 1/10 unanswered questions.</p>
+
+<p>In other hand Elixir have dedicated forum (named <a href="https://elixirforum.com/">Elixir Forum</a>) and this forum is more active than stackoverflow.</p>
+
+<h3 id="divergent-opinions">Divergent opinions</h3>
+
+<p>In the Erlang/Elixir ecosystem, some common problems are not solved in the standard library. The best example is JSON data structure manipulation.</p>
+
+<p>Due to an divergent opinion on the best way to serialize and deserialize JSON data structure Erlang and Elixir does not provide a built-in module to manage JSON.</p>
+
+<p>&nbsp;</p>
+
+<blockquote>
+  <p>This resulted in a proliferation of libraries to manipulate JSON.</p>
+</blockquote>
+
+<p>&nbsp;</p>
+
+<p>Many third party libraries use different JSON library to deal with JSON format.
+This can cause dependencies conflict (e.g. not compatible version) and/or in the worst case scenario a security issue.</p>
+
+<p>Yet, this force Elixir developer to monitor all the sub-dependencies about JSON serialization to avoid any security issue.</p>
+
+<p>This case is only one example of divergent opinions in the Elixir/Erlang community.</p>
+
+<h2 id="easy-do-deploy">Easy do deploy</h2>
+
+<p>Elixir, built on the top of Erlang, is using the <a href="http://erlang.org/doc/man/supervisor.html">Supervisor pattern</a>, described as:</p>
+
+<blockquote>
+  <p>The supervisor is responsible for starting, stopping, and monitoring its child processes. The basic idea of a supervisor is that it must keep its child processes alive by restarting them when necessary.</p>
+</blockquote>
+
+<p><img src="https://honest.engineering/assets/feedback-elixir-supervisor.jpg" alt="Supervisor Pattern" /></p>
+
+<p>This allows Elixir to be deployed in two differents ways:</p>
+
+<ul>
+  <li>Installing the Elixir runtime on the server who host the application. This deployment is equivalent as your development computer configuration.</li>
+  <li>Using an <a href="http://erlang.org/doc/system_architecture_intro/sys_arch_intro.html">Erlang OTP (Open Telecom Platform)</a> release approach that will allow you to deploy Elixir application by creating an Erlang OTP release that embed Elixir and the Elixir application to deploy.</li>
+</ul>
+
+<p>Let’s dig into these 2 alternatives.</p>
+
+<h3 id="elixir-runtime-is-on-the-server-who-host-the-application">Elixir runtime is on the server who host the application</h3>
+
+<p>Deploy by installing the Elixir runtime directly on the server is the most simple way.</p>
+
+<p>Elixir runtime allow us to keep mix command and manage configuration easily, but with this method the release lost important Erlang VM features like hot upgrade, cluster mode, etc.</p>
+
+<h3 id="by-creating-erlang-otp-release">By creating Erlang OTP release</h3>
+
+<p>Creating an Erlang OTP release can done by hand, but this solution is <a href="http://erlang.org/doc/design_principles/release_structure.html">long and painful</a>.</p>
+
+<p><a href="https://github.com/bitwalker/distillery">Distillery</a> is a Elixir library to simplify the creation of an Erlang OTP release.</p>
+
+<p>However, the first problem is that Distillery is an external tool.</p>
+
+<p>Indeed, Elixir does not provide a built-in <code class="highlighter-rouge">mix</code> command to create a Erlang OTP release, and this may break your deployments (<a href="https://github.com/bitwalker/distillery/issues/426">bitwalker/distillery#426</a>) because the Elixir docker images don’t take care about Distillery compatibility.</p>
+
+<p>The issue was introduced by a sudden upgrade of OTP version in the Elixir images.</p>
+
+<p>Contrary to Golang, you should build the Erlang OTP release on the same OS system that the OS system used to run the Erlang OTP release.</p>
+
+<p>This constraint adds overhead to create the Erlang OTP release (knowing what’s OS system is used to deploy the OTP release).</p>
+
+<h3 id="native-implemented-functions-nif">Native Implemented Functions (NIF)</h3>
+
+<p>A painless step to deploy an Elixir application or an Erlang OTP release is the NIF third libraries.
+However, you should ensure your server meets all the required dependencies.</p>
+
+<p>This behaviour may introduce production application crash when the NIF libraries is updated and not the server.</p>
+
+<p><a href="http://erlang.org/doc/tutorial/nif.html">NIF</a> forces to maintain an OS image that follow the Elixir code versioning to avoid any issue.</p>
+
+<h2 id="monitorable">Monitorable</h2>
+<p>Monitor Elixir/Erlang application can be hard.</p>
+
+<p>Mainly because, the Elixir/Erlang application have a lot of processes that are not always linked with the main process.</p>
+
+<p>Therefore, you could miss either an error or a crash.</p>
+
+<p>If you come from Ruby world you can be regular with the auto-magic monitoring provide by New Relic for example. In the Elixir/Erlang world you can forget this.</p>
+
+<p>Moreover, the most popular monitoring SaaS (DataDog, Librato, etc.) does not provide an official library to push metrics to their services.</p>
+
+<p>Not have official support may introduce bug or performance issue in your application (<a href="https://github.com/romul/newrelic.ex">more informations</a>).</p>
+
+<p>Elixir/Erlang have the same issue with the open source monitoring tools like <a href="https://prometheus.io/">Prometheus</a>.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Should you use <a href="https://elixir-lang.org/">Elixir</a> in production?</p>
+
+<p>To be honest, it depends on your use case and your expectations.</p>
+
+<p>A lot of companies works with Elixir in production and have wonderful results, but there is also companies having bad time creating a production grade application (e.g. <a href="https://blog.discordapp.com/scaling-elixir-f9b8e1e7c29b">Discord</a>).</p>
+
+<p>Moreover Elixir/Erlang are languages created for a distributed system and distributed system are hard to build, maintain and monitor.</p>
+
+<p>So, don’t be afraid of using Elixir to build your production project but ensure you have the right team and time to do it properly.</p>
+
+<style>
+  h2 {
+    margin-top: 3em;
+  }
+  h3 {
+    margin-top: 2em;
+  }
+  table {
+    width: 100%;
+    border: 1px solid #cbcbcb;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 1.5em 0em;
+  }
+  thead {
+    background-color: #e0e0e0;
+    color: #000;
+    text-align: left;
+    vertical-align: bottom;
+  }
+  td:first-child,  th:first-child {
+    border-left-width: 0;
+  }
+  td, th {
+    border-left: 1px solid #cbcbcb;
+    border-width: 0 0 0 1px;
+    font-size: inherit;
+    margin: 0;
+    overflow: visible;
+    padding: .5em 1em;
+  }
+</style>
+
+
+
+  <p>
+      &nbsp;
+  </p>
+
+  
+    <div style="text-align:center">
+        <a
+        class="twitter-share-button"
+        href="https://twitter.com/intent/tweet?text=Why%20you%20should%20not%20use%20Elixir%20in%20production%20-%20Honest%20Engineering&url=https://honest.engineering/posts/why-you-should-not-use-elixir-in-production"
+        data-size="large"
+      >
+        Tweet
+      </a>
+    </div>
+  
+
+</div>
+
+<div class="pagination">
+  
+  
+    <a href="/posts/hash-functions-survival-guide" class="right arrow">&#8594;</a>
+  
+
+  <a href="#" class="top">Top</a>
+</div>
+
+<script>window.twttr = (function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0],
+  t = window.twttr || {};
+if (d.getElementById(id)) return t;
+js = d.createElement(s);
+js.id = id;
+js.src = "https://platform.twitter.com/widgets.js";
+fjs.parentNode.insertBefore(js, fjs);
+
+t._e = [];
+t.ready = function(f) {
+  t._e.push(f);
+};
+
+return t;
+}(document, "script", "twitter-wjs"));</script>
+
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<div class="pagination">
+  &nbsp;
+</div>
+
+<!-- Begin MailChimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://engineering.us19.list-manage.com/subscribe/post?u=998670a5dc268a049bab77311&amp;id=fefb7122a3" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Get notified when a new post is published!</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_998670a5dc268a049bab77311_fefb7122a3" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+
+
+    </main>
+
+    <footer>
+      <p>
+        <a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US">
+          <img alt="Creative Commons License" style="border-width:0"
+               src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
+        </a>
+      </p>
+      <span>
+        This work is licensed under a
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
+          Creative Commons Attribution-ShareAlike 3.0 Unported License</a>
+        <time datetime="2018-11-27 18:28:42 +0000">2018</time> . <a href="https://github.com/honestengineering/blog/tree/master/_posts/2018-11-27-why-you-should-not-use-elixir-in-production.markdown">Source code</a>. <br />
+        Made with Jekyll using a <a href="https://github.com/HonestEngineering/tale">modified</a> version of the <a href="https://github.com/chesterhow/tale/">Tale</a> theme.
+      </span>
+    </footer>
+  </body>
+</html>
