@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://honest.engineering/feed.xml" rel="self" type="application/atom+xml" /><link href="https://honest.engineering/" rel="alternate" type="text/html" /><updated>2018-11-27T18:28:42+00:00</updated><id>https://honest.engineering/</id><title type="html">Honest Engineering</title><subtitle>We are a group of fellow engineers who want to share an honest vision of the current state of web engineering. Most of articles are either self promotions, or too opinionated. We want to share honest and unbiased thought about the current state of tech. Our mission is to help fellow engineers forge their own opinion on current trendy and controversial subjects.</subtitle><entry><title type="html">Why you should not use Elixir in production</title><link href="https://honest.engineering/posts/why-you-should-not-use-elixir-in-production" rel="alternate" type="text/html" title="Why you should not use Elixir in production" /><published>2018-11-27T15:03:00+00:00</published><updated>2018-11-27T15:03:00+00:00</updated><id>https://honest.engineering/posts/why-you-should-not-use-elixir-in-production</id><content type="html" xml:base="https://honest.engineering/posts/why-you-should-not-use-elixir-in-production">&lt;p&gt;&lt;a href=&quot;https://elixir-lang.org/&quot;&gt;Elixir&lt;/a&gt; is a pretty awesome new language based on the Erlang VM that offers some cool features like: high concurrency model, fast execution time, clustering and stateful made easy.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://honest.engineering/feed.xml" rel="self" type="application/atom+xml" /><link href="https://honest.engineering/" rel="alternate" type="text/html" /><updated>2018-11-28T13:55:07+00:00</updated><id>https://honest.engineering/</id><title type="html">Honest Engineering</title><subtitle>We are a group of fellow engineers who want to share an honest vision of the current state of web engineering. Most of articles are either self promotions, or too opinionated. We want to share honest and unbiased thought about the current state of tech. Our mission is to help fellow engineers forge their own opinion on current trendy and controversial subjects.</subtitle><entry><title type="html">Why you should not use Elixir in production</title><link href="https://honest.engineering/posts/why-you-should-not-use-elixir-in-production" rel="alternate" type="text/html" title="Why you should not use Elixir in production" /><published>2018-11-27T15:03:00+00:00</published><updated>2018-11-27T15:03:00+00:00</updated><id>https://honest.engineering/posts/why-you-should-not-use-elixir-in-production</id><content type="html" xml:base="https://honest.engineering/posts/why-you-should-not-use-elixir-in-production">&lt;p&gt;&lt;a href=&quot;https://elixir-lang.org/&quot;&gt;Elixir&lt;/a&gt; is a pretty awesome new language based on the Erlang VM that offers some cool features like: high concurrency model, fast execution time, clustering and stateful made easy.&lt;/p&gt;
 
 &lt;p&gt;However, the real question is:&lt;/p&gt;
 
@@ -21,30 +21,30 @@
 &lt;p&gt;To simplify, we will define “Production Grade Application” into 3 guidelines:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Monitorable&lt;/strong&gt; - ex: &lt;em&gt;we should be able to detect and diagnose failure easily&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Easy to deploy&lt;/strong&gt; - ex: &lt;em&gt;deployment should be easy and automatable&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Stable&lt;/strong&gt; - ex: &lt;em&gt;updating our dependencies should be safe and easy&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Monitorable&lt;/strong&gt; - e.g.: &lt;em&gt;we should be able to detect and diagnose failure easily&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Easy to deploy&lt;/strong&gt; - e.g.: &lt;em&gt;deployment should be easy and automatable&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Stable&lt;/strong&gt; - e.g.: &lt;em&gt;updating our dependencies should be safe and easy&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
 
 &lt;p&gt;You are brainstorming about building your next application with Elixir?&lt;/p&gt;
 
-&lt;p&gt;This post will show us if Elixir fulfill the “Production Grade Application” guidelines.&lt;/p&gt;
+&lt;p&gt;This post will try to show you if Elixir fulfill the “Production Grade Application” guidelines.&lt;/p&gt;
 
 &lt;h2 id=&quot;stable&quot;&gt;Stable&lt;/h2&gt;
 
 &lt;p&gt;As young language, Elixir moves fast!&lt;/p&gt;
 
-&lt;p&gt;While rapid evolution of a language is a good thing, it may lead to many collateral effects.&lt;/p&gt;
+&lt;p&gt;While fast evolution of a language is a good, it may lead to many collateral damages.&lt;/p&gt;
 
-&lt;p&gt;Elixir is not an exception to this rule.&lt;/p&gt;
+&lt;p&gt;Elixir is not an exception to the rule.&lt;/p&gt;
 
 &lt;h3 id=&quot;compilation-noises&quot;&gt;Compilation noises&lt;/h3&gt;
 
 &lt;p&gt;Elixir has a cool philosophy: no breaking change for all minor releases.&lt;/p&gt;
 
-&lt;p&gt;However, Elixir introduce deprecations in many minor releases that leads to some compilation warnings.&lt;/p&gt;
+&lt;p&gt;However, Elixir introduces deprecations in many minor releases that leads to some compilation warnings.&lt;/p&gt;
 
 &lt;p&gt;Fixing compilation warning in your codebase is quick and simple, but fixing compilation warning emitted by third party libraries is not possible.&lt;/p&gt;
 
@@ -116,7 +116,7 @@ This can cause dependencies conflict (e.g. not compatible version) and/or in the
 
 &lt;h3 id=&quot;by-creating-erlang-otp-release&quot;&gt;By creating Erlang OTP release&lt;/h3&gt;
 
-&lt;p&gt;Creating an Erlang OTP release can done by hand, but this solution is &lt;a href=&quot;http://erlang.org/doc/design_principles/release_structure.html&quot;&gt;long and painful&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Creating an Erlang OTP release can be done by hand, but this solution is &lt;a href=&quot;http://erlang.org/doc/design_principles/release_structure.html&quot;&gt;long and painful&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/bitwalker/distillery&quot;&gt;Distillery&lt;/a&gt; is a Elixir library to simplify the creation of an Erlang OTP release.&lt;/p&gt;
 
@@ -146,11 +146,11 @@ However, you should ensure your server meets all the required dependencies.&lt;/
 
 &lt;p&gt;Therefore, you could miss either an error or a crash.&lt;/p&gt;
 
-&lt;p&gt;If you come from Ruby world you can be regular with the auto-magic monitoring provide by New Relic for example. In the Elixir/Erlang world you can forget this.&lt;/p&gt;
+&lt;p&gt;If you come from Ruby world you can be regular with the auto-magic monitoring provided by New Relic for example. In the Elixir/Erlang world you can forget this.&lt;/p&gt;
 
 &lt;p&gt;Moreover, the most popular monitoring SaaS (DataDog, Librato, etc.) does not provide an official library to push metrics to their services.&lt;/p&gt;
 
-&lt;p&gt;Not have official support may introduce bug or performance issue in your application (&lt;a href=&quot;https://github.com/romul/newrelic.ex&quot;&gt;more informations&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Not having official support may introduce bug or performance issue in your application (&lt;a href=&quot;https://github.com/romul/newrelic.ex&quot;&gt;more informations&lt;/a&gt;).&lt;/p&gt;
 
 &lt;p&gt;Elixir/Erlang have the same issue with the open source monitoring tools like &lt;a href=&quot;https://prometheus.io/&quot;&gt;Prometheus&lt;/a&gt;.&lt;/p&gt;
 
@@ -160,7 +160,7 @@ However, you should ensure your server meets all the required dependencies.&lt;/
 
 &lt;p&gt;To be honest, it depends on your use case and your expectations.&lt;/p&gt;
 
-&lt;p&gt;A lot of companies works with Elixir in production and have wonderful results, but there is also companies having bad time creating a production grade application (e.g. &lt;a href=&quot;https://blog.discordapp.com/scaling-elixir-f9b8e1e7c29b&quot;&gt;Discord&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;A lot of companies work with Elixir in production and have wonderful results, but there is also companies having bad time creating a production grade application (e.g. &lt;a href=&quot;https://blog.discordapp.com/scaling-elixir-f9b8e1e7c29b&quot;&gt;Discord&lt;/a&gt;).&lt;/p&gt;
 
 &lt;p&gt;Moreover Elixir/Erlang are languages created for a distributed system and distributed system are hard to build, maintain and monitor.&lt;/p&gt;
 
