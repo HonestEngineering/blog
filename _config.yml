@@ -11,6 +11,7 @@ source_url: "https://github.com/honestengineering/blog"
 github_username:  honestengineering
 
 destination: docs
+github_graphql_proxy: https://4b7summa58.execute-api.us-east-1.amazonaws.com/production/graphql
 
 # Build settings
 markdown: kramdown

@@ -3,6 +3,7 @@ layout: post
 title:  "Why you should not use Elixir in production"
 date:   2018-11-27 17:03:00 +0200
 tags: Feedback
+pr_id: 12
 ---
 
 [Elixir](https://elixir-lang.org/) is a pretty awesome new language based on the Erlang VM that offers some cool features like: high concurrency model, fast execution time, clustering and stateful made easy.
