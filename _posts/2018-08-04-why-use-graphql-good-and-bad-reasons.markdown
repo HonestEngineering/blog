@@ -5,12 +5,6 @@ date:   2018-08-04 12:59:40 +0200
 tags: Feedback
 ---
 
-<br>
-
-[![React Europe](https://img.shields.io/badge/join%20us%20in%20Paris%20at-ReactEurope%20(May%2012--15%2C%202020)%20to%20learn%20about%20React%2C%20TypeScript%2C%20GraphQL%20and%20more!-blue)](https://react-europe.org)
-
-<br>
-
 To be honest, GraphQL had its dose of hype the last months.
 
 Went from “indie” to a “commercial” technology with company like [Prisma](https://www.graph.cool/), [Apollo](http://apollodata.com/optics/) or even [Amazon](https://aws.amazon.com/fr/appsync/) providing professional products and support.
@@ -299,11 +293,6 @@ GraphQL will help you build rich mobile or web clients.
 
 It can also helps you to improve data related backend - like indexing jobs.
 
-<br>
-
-[![React Europe](https://img.shields.io/badge/join%20us%20in%20Paris%20at-ReactEurope%20(May%2012--15%2C%202020)%20to%20learn%20about%20React%2C%20TypeScript%2C%20GraphQL%20and%20more!-blue)](https://react-europe.org)
-
-<br>
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
